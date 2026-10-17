@@ -49,9 +49,9 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp) // Altura do banner no estilo Steam
+                .height(180.dp) // Arthur: Botei a altura do banner no estilo da Steam
         ) {
-            // Imagem cobrindo 100% da área do Card
+            // Arthru: Imagem cobrindo 100% da área do Card
             AsyncImage(
                 model = jogo.imagemUrl,
                 contentDescription = jogo.titulo,
@@ -59,7 +59,7 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                 contentScale = ContentScale.Crop
             )
 
-            // Degradê escuro por cima da imagem para garantir leitura dos textos
+            // Arthur: Degradê escuro por cima da imagem
             Box(
                 modifier = Modifier
                     .fillMaxSize()
