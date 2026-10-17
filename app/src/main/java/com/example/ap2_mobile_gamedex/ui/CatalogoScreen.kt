@@ -23,7 +23,7 @@ import com.example.ap2_mobile_gamedex.data.JogoRepository
 @Composable
 fun CatalogoScreen(onJogoClick: (Int) -> Unit) {
     Scaffold(
-        containerColor = Color(0xFF121214), // Fundo Dark Profundo
+        containerColor = Color(0xFF121214),
         topBar = {
             TopAppBar(
                 title = {
@@ -31,7 +31,7 @@ fun CatalogoScreen(onJogoClick: (Int) -> Unit) {
                         text = "Catálogo de Jogos",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFE1E1E6)
+                        color = Color(0xFFF4F4F5)
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -44,8 +44,8 @@ fun CatalogoScreen(onJogoClick: (Int) -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp) // Espaço maior entre os cards
         ) {
             items(JogoRepository.listar(), key = { it.id }) {
                 JogoCard(it) { onJogoClick(it.id) }

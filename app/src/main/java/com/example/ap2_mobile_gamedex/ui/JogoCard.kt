@@ -1,9 +1,13 @@
 package com.example.ap2_mobile_gamedex.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -37,73 +41,113 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF202024) // Card Dark elevado
+            containerColor = Color(0xFF1E1E24)
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        border = BorderStroke(1.dp, Color(0xFF2E2E38)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .height(180.dp) // Altura do banner no estilo Steam
         ) {
+            // Imagem cobrindo 100% da área do Card
             AsyncImage(
                 model = jogo.imagemUrl,
                 contentDescription = jogo.titulo,
-                modifier = Modifier
-                    .size(width = 64.dp, height = 88.dp)
-                    .clip(RoundedCornerShape(8.dp)),
+                modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(Modifier.width(16.dp))
+            // Degradê escuro por cima da imagem para garantir leitura dos textos
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color(0x80000000), // Escuro médio
+                                Color(0xF1121214)  // Fundo bem escuro na base
+                            ),
+                            startY = 0f
+                        )
+                    )
+            )
 
+            // Badge de Nota no canto superior direito
+            Surface(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(12.dp),
+                shape = RoundedCornerShape(8.dp),
+                color = Color(0xFF18181B).copy(alpha = 0.85f),
+                border = BorderStroke(1.dp, Color(0xFF2E2E38))
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = Color(0xFFA78BFA),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Text(
+                        text = "${jogo.nota}",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFA78BFA)
+                    )
+                }
+            }
+
+            // Conteúdo textual na base do Banner
             Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.Center
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .fillMaxWidth()
+                    .padding(14.dp)
             ) {
                 Text(
                     text = jogo.titulo,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFF4F4F5),
+                    color = Color(0xFFFFFFFF),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(6.dp))
 
-                Text(
-                    text = "${jogo.ano} · ${jogo.genero}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFFA1A1AA)
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                // Badge de Nota com cor Neon / Gamer
-                Surface(
-                    shape = RoundedCornerShape(6.dp),
-                    color = Color(0xFF8B5CF6).copy(alpha = 0.2f)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    // Tag de Gênero
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = Color(0xFF8B5CF6).copy(alpha = 0.25f)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = null,
-                            tint = Color(0xFFA78BFA),
-                            modifier = Modifier.size(14.dp)
-                        )
                         Text(
-                            text = "${jogo.nota}",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFA78BFA)
+                            text = jogo.genero,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFA78BFA),
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                         )
                     }
+
+                    // Ano de Lançamento
+                    Text(
+                        text = "${jogo.ano}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFFD4D4D8)
+                    )
                 }
             }
         }
