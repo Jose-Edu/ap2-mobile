@@ -78,7 +78,6 @@ fun DetalheScreen(jogoId: Int, onVoltar: () -> Unit) {
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Arthur: Botei a imagem em toda largura da tela
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -90,7 +89,7 @@ fun DetalheScreen(jogoId: Int, onVoltar: () -> Unit) {
                     contentDescription = jogo.titulo,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp) // Altura de banner bem proporcional
+                        .height(220.dp)
                         .clip(RoundedCornerShape(16.dp)),
                     contentScale = ContentScale.Crop
                 )

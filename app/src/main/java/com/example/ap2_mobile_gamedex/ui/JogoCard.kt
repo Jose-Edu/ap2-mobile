@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -49,9 +48,8 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp) // Arthur: Botei a altura do banner no estilo da Steam
+                .height(180.dp)
         ) {
-            // Arthru: Imagem cobrindo 100% da área do Card
             AsyncImage(
                 model = jogo.imagemUrl,
                 contentDescription = jogo.titulo,
@@ -59,7 +57,6 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                 contentScale = ContentScale.Crop
             )
 
-            // Arthur: Degradê escuro por cima da imagem
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -67,15 +64,14 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                         Brush.verticalGradient(
                             colors = listOf(
                                 Color.Transparent,
-                                Color(0x80000000), // Escuro médio
-                                Color(0xF1121214)  // Fundo bem escuro na base
+                                Color(0x80000000),
+                                Color(0xF1121214)
                             ),
                             startY = 0f
                         )
                     )
             )
 
-            // Badge de Nota no canto superior direito
             Surface(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -104,7 +100,6 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                 }
             }
 
-            // Conteúdo textual na base do Banner
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
@@ -127,7 +122,6 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Tag de Gênero
                     Surface(
                         shape = RoundedCornerShape(6.dp),
                         color = Color(0xFF8B5CF6).copy(alpha = 0.25f)
@@ -141,7 +135,6 @@ fun JogoCard(jogo: Jogo, onClick: () -> Unit) {
                         )
                     }
 
-                    // Ano de Lançamento
                     Text(
                         text = "${jogo.ano}",
                         style = MaterialTheme.typography.bodyMedium,

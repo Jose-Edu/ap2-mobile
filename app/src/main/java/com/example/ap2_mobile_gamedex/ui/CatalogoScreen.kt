@@ -45,7 +45,7 @@ fun CatalogoScreen(onJogoClick: (Int) -> Unit) {
                 .fillMaxSize()
                 .padding(innerPadding),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp) // Espaço maior entre os cards
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             items(JogoRepository.listar(), key = { it.id }) {
                 JogoCard(it) { onJogoClick(it.id) }
